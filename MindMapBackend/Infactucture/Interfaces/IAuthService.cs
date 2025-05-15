@@ -6,6 +6,6 @@ namespace MindMapBackend.Infactucture.Interfaces
     public interface IAuthService
     {
         public Task<AuthResult> AuthenticateAsync(string email, string password);
-        public Task<User> Register(User user);
+        public Task<AuthResult> RegisterAsync(RegisterDTO registerDto);
     }
 }

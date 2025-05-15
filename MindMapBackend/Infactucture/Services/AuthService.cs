@@ -39,9 +39,32 @@ namespace MindMapBackend.Infactucture.Services
 
         }
 
-        public Task<User> Register(User user)
+        public async Task<AuthResult> RegisterAsync(RegisterDTO registerDto)
         {
-            throw new NotImplementedException();
+            if (await _context.Users.AnyAsync(u => u.email == registerDto.email)) {
+                return AuthResult.Failure("Пользователь с такой почтой уже существует");         
+            }
+
+            var user = new User
+            {
+                name = registerDto.name,
+                email = registerDto.email,
+                password = GostPasswordHasher.HashPassword(registerDto.password),
+                surname = registerDto.surname,
+                role = "User"
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            var token = _jwtService.GenerateJwtToken(user);
+            return AuthResult.Success(token, new UserDTO
+            {
+                Email = user.email,
+                Name = user.name,
+                Surname = user.surname,
+                Role = user.role
+            });
         }
     }
 }
