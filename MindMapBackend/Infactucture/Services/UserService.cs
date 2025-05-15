@@ -14,6 +14,13 @@ namespace MindMapBackend.Infactucture.Services
             
         }
 
+        public async Task<User> CreateUserAsync(User user)
+        {
+            _dbContext.Users.Add(user);
+            await _dbContext.SaveChangesAsync();
+            return user;
+        }
+
         public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
             return await _dbContext.Users.ToListAsync();

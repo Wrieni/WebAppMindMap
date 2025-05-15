@@ -5,6 +5,7 @@ using MindMapBackend.Infactucture.Interfaces;
 namespace MindMapBackend.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
