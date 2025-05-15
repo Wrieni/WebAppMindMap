@@ -1,0 +1,13 @@
+# Общие игнорируемые файлы
+.DS_Store
+node_modules/
+.vscode/
+
+# Бэкенд
+MindMapBackend/bin/
+MindMapBackend/obj/
+MindMapBackend/.vs/
+
+# Фронтенд
+MindMapFrontend/.env
+MindMapFrontend/dist/
