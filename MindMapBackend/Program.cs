@@ -60,12 +60,24 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+        ValidAudience = builder.Configuration["JwtSettings:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
     };
 });
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -74,13 +86,13 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<MindMapDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
-builder.Services.AddCors(options => {
-    options.AddPolicy("ReactPolicy", policy => {
-        policy.WithOrigins("http://localhost:5173") // Порт Vite по умолчанию
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
+//builder.Services.AddCors(options => {
+//    options.AddPolicy("ReactPolicy", policy => {
+//        policy.WithOrigins("http://localhost:5173") // Порт Vite по умолчанию
+//              .AllowAnyHeader()
+//              .AllowAnyMethod();
+//    });
+//});
 
 var app = builder.Build();
 
@@ -100,7 +112,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseCors("ReactPolicy");
+app.UseCors("AllowAll");
 app.MapWhen(ctx => !ctx.Request.Path.StartsWithSegments("/api"), b => b.UseHttpsRedirection());
 
 app.MapGet("/api/test", () => "Hello from ASP.NET!");

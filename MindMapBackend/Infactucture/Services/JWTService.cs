@@ -18,7 +18,7 @@ namespace MindMapBackend.Infactucture.Services
         public string GenerateJwtToken(User user)
         {
             var jwtSettings = _config.GetSection("JwtSettings");
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]));
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new List<Claim>
