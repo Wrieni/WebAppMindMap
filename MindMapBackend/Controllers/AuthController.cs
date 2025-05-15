@@ -28,5 +28,21 @@ namespace MindMapBackend.Controllers
             }                
             );
         }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDTO model)
+        {
+            var result = await _authService.RegisterAsync(model);
+
+            if (!result.Succeeded) { return BadRequest(result.Error); }
+
+            return Ok(new
+                {
+                Token = result.Token,
+                Message = "Регистрация успешна",
+                User = result.User
+                }
+            );
+        }
     }
 }
