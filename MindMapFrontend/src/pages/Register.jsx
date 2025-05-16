@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useAuth } from '../context/AuthContext'; // Правильный путь
+
 
 export default function Register() {
+  const { register } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     surname: "",
     email: "",
     password: ""
   });
-
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -20,13 +21,13 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://localhost:7204/api/Auth/register", formData);
-      localStorage.setItem("token", res.data.token);
-      navigate("/profile");
+      await register(formData);
+      navigate('/profile');
     } catch (err) {
-      setError(err.response?.data || "Произошла ошибка при регистрации");
+      setError(err.response?.data || "Ошибка регистрации");
     }
   };
+
 
   return (
     <div>

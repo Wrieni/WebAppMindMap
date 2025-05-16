@@ -7,5 +7,7 @@ namespace MindMapBackend.Infactucture.Interfaces
     {
         public Task<AuthResult> AuthenticateAsync(string email, string password);
         public Task<AuthResult> RegisterAsync(RegisterDTO registerDto);
+        Task<UserDTO?> GetProfileAsync(int userId);
+
     }
 }

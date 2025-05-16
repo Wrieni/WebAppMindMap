@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MindMapBackend.Data.DTO;
+using MindMapBackend.Data.Models;
 using MindMapBackend.Infactucture.Interfaces;
+using System.Security.Claims;
 
 namespace MindMapBackend.Controllers
 {
@@ -9,10 +13,12 @@ namespace MindMapBackend.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        
 
         public AuthController(IAuthService authService)
         {
-            _authService = authService;
+            _authService = authService;           
+          
         }
 
         [HttpPost("login")]
@@ -45,5 +51,28 @@ namespace MindMapBackend.Controllers
                 }
             );
         }
+
+
+        [HttpGet("profile")]
+        [Authorize]
+        public async Task<IActionResult> GetProfile()
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null)
+                return Unauthorized("Пользователь не авторизован");
+
+            if (!int.TryParse(userIdClaim.Value, out var userId))
+                return Unauthorized("Некорректный токен");
+
+            var userDto = await _authService.GetProfileAsync(userId);
+
+            if (userDto == null)
+                return NotFound("Пользователь не найден");
+
+            return Ok(userDto);
+        }
+
+
     }
 }

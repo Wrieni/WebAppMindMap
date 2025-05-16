@@ -66,5 +66,22 @@ namespace MindMapBackend.Infactucture.Services
                 Role = user.role
             });
         }
+
+        public async Task<UserDTO?> GetProfileAsync(int userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.id == userId);
+
+            if (user == null)
+                return null;
+
+            return new UserDTO
+            {
+                Email = user.email,
+                Name = user.name,
+                Surname = user.surname,
+                Role = user.role
+            };
+        }
+
     }
 }

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useAuth } from "../context/AuthContext"; // подключаем контекст
 
 export default function Login() {
+  const { login } = useAuth(); // используем login из контекста
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -17,14 +18,11 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post("https://localhost:7204/api/Auth/login", formData);
-      localStorage.setItem("token", res.data.token);
-      // здесь можно сохранить имя/роль, если нужно:
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      navigate("/profile"); // редирект на страницу профиля
-    } catch (err) {
-      setError(err.response?.data || "Ошибка входа");
+    const success = await login(formData.email, formData.password);
+    if (success) {
+      navigate("/profile"); // редирект
+    } else {
+      setError("Неверные данные для входа");
     }
   };
 

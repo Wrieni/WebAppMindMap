@@ -1,0 +1,17 @@
+.profile {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.info {
+  margin-top: 15px;
+}
+
+.info p {
+  font-size: 16px;
+  margin: 10px 0;
+}
