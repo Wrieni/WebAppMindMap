@@ -9,18 +9,23 @@ namespace MindMapBackend.Infactucture.Services
     public class NodeService : INodeService
     {
         private readonly MindMapDbContext _context;
+        private readonly MindMapService _mindMapService;
 
-        public NodeService(MindMapDbContext context)
+        public NodeService(MindMapDbContext context, MindMapService mindMapService)
         {
             _context = context;
+            _mindMapService = mindMapService;
+            
         }
 
-        public async Task<Node> CreateNodeAsync(int mindMapId, CreateNodeDTO node)
+        public async Task<Node> CreateNodeAsync(int mindMapId, int userId, CreateNodeDTO node)
         {           
             if (mindMapId == 0 )
             {
                 throw new Exception("Невозможно создать узел в несуществующей карте");
             }
+            var mindmap = await _mindMapService.GetMindMapByIdAsync(mindMapId);
+            if (mindmap.userid != userId) { throw new Exception("Карта не принадлежит юзеру"); }
 
             var newnode = new Node {
                 title = node.Title,
@@ -37,8 +42,11 @@ namespace MindMapBackend.Infactucture.Services
 
         }
 
-        public async Task DeleteNodeAsync(int id)
+        public async Task DeleteNodeAsync(int id, int mindMapId, int userId)
         {
+            var mindmap = await _mindMapService.GetMindMapByIdAsync(mindMapId);
+            mindmap.EnsureOwner(userId);
+
             var node = await _context.Nodes.FindAsync(id);
             if (node == null)
                 throw new KeyNotFoundException("Узел не найден");
@@ -52,13 +60,17 @@ namespace MindMapBackend.Infactucture.Services
             return await _context.Nodes.ToListAsync();
         }
 
-        public async Task<Node> GetNodeByIdAsync(int id)
+        public async Task<Node> GetNodeByIdAsync(int id, int mindMapId, int userId)
         {
-            return await _context.Nodes.FirstOrDefaultAsync(n => n.id == id);
+            var mindmap = await _mindMapService.GetMindMapByIdAsync(mindMapId);
+            mindmap.EnsureOwner(userId);
+            return await _context.Nodes.FindAsync(id);
         }
 
-        public async Task UpdateNodeAsync(int id, Node node)
+        public async Task UpdateNodeAsync(int id, Node node, int mindMapId, int userId)
         {
+            var mindmap = await _mindMapService.GetMindMapByIdAsync(mindMapId);
+            mindmap.EnsureOwner(userId);
             if (id != node.id) { throw new ArgumentException("ID узла не совпадает с переданным"); }
             _context.Entry(node).State = EntityState.Modified;
             await _context.SaveChangesAsync();

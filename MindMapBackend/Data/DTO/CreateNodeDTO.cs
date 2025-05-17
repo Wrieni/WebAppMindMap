@@ -7,5 +7,6 @@
         public double PositionX { get; set; }
         public double PositionY { get; set; }
         public string Color { get; set; }
+        public bool? ispublic { get; set; }
     }
 }

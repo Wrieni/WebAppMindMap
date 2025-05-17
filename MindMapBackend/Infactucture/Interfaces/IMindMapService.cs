@@ -1,6 +1,17 @@
-﻿namespace MindMapBackend.Infactucture.Interfaces
+﻿using MindMapBackend.Data.DTO;
+using MindMapBackend.Data.Models;
+
+namespace MindMapBackend.Infactucture.Interfaces
 {
     public interface IMindMapService
     {
+        Task<IEnumerable<MindMap>> GetAllMindMapsAsync();
+        Task<MindMap> GetMindMapByIdAsync(int id);
+        Task<MindMap> GetMindMapByUserIdAsync(int userId);
+        Task<MindMap> CreateMindMapAsync(int userId, CreateMindMapDTO map);
+        Task UpdateMindMapAsync(int id, MindMap map, int userId);
+        Task DeleteMindMapAsync(int id, int userId);
+        Task ToggleVisibilityAsync(int mapId);
+
     }
 }
