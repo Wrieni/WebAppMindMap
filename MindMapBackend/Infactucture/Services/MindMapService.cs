@@ -72,10 +72,11 @@ namespace MindMapBackend.Infactucture.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task ToggleVisibilityAsync(int mapId)
+        public async Task ToggleVisibilityAsync(int mapId, int userId)
         {
             var map = await _context.MindMaps.FindAsync(mapId);
             if (map == null) throw new KeyNotFoundException("Карта не найдена");
+            map.EnsureOwner(userId);
 
             map.ispublic = !map.ispublic;
             await _context.SaveChangesAsync();

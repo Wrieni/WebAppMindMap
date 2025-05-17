@@ -7,11 +7,11 @@ namespace MindMapBackend.Infactucture.Interfaces
     {
         Task<IEnumerable<MindMap>> GetAllMindMapsAsync();
         Task<MindMap> GetMindMapByIdAsync(int id);
-        Task<MindMap> GetMindMapByUserIdAsync(int userId);
+        Task<IEnumerable<MindMap>> GetMindMapByUserIdAsync(int userId);
         Task<MindMap> CreateMindMapAsync(int userId, CreateMindMapDTO map);
         Task UpdateMindMapAsync(int id, MindMap map, int userId);
         Task DeleteMindMapAsync(int id, int userId);
-        Task ToggleVisibilityAsync(int mapId);
+        Task ToggleVisibilityAsync(int mapId, int userId);
 
     }
 }
