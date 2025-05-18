@@ -21,6 +21,16 @@ namespace MindMapBackend.Infactucture.Services
                 ispublic = map.ispublic,
                 createdat = DateTime.Now,
                 userid = userId,
+                Nodes = new List<Node>
+                    {
+                        new Node
+                        {
+                            title = "Главная тема",
+                            positionx= 300,
+                            positiony = 300,
+
+                        }
+                    }
             };
 
             _context.Add(newMap);
@@ -50,6 +60,58 @@ namespace MindMapBackend.Infactucture.Services
         {
             return await _context.MindMaps.FindAsync(id);
 
+        }
+     
+        //public async Task<MindMapResponse> GetMindMapWithNodesAndConnectionsAsync(int mapId, int userId)
+        //{
+        //    var map = await _context.MindMaps
+        //        .Include(m => m.Nodes)
+        //        .Include(m => m.Connections)
+        //        .FirstOrDefaultAsync(m => m.id == mapId && m.userid == userId);
+
+        //    if (map == null) throw new KeyNotFoundException("Карта не найдена");
+        //    if (map.userid != userId)
+        //        throw new UnauthorizedAccessException("У вас нет прав на просмотр этой карты.");
+
+        //    return new MindMapResponse
+        //    {
+        //        Id = map.id,
+        //        Title = map.title,
+        //        Nodes = (List<Node>)map.Nodes,
+        //        Connections = (List<Connection>)map.Connections
+        //    };
+        //}
+
+        public async Task<MindMapResponse> GetMindMapWithNodesAndConnectionsAsync(int mapId, int userId)
+        {
+            var map = await _context.MindMaps
+                .Include(m => m.Nodes)
+                .Include(m => m.Connections)
+                .FirstOrDefaultAsync(m => m.id == mapId && m.userid == userId);
+
+            if (map == null) throw new KeyNotFoundException("Карта не найдена");
+
+            return new MindMapResponse
+            {
+                Id = map.id,
+                Title = map.title,
+                IsPublic = map.ispublic,
+                Nodes = map.Nodes.Select(n => new NodeResponseDTO
+                {
+                    Id = n.id,
+                    Title = n.title,
+                    Description = n.description,
+                    PositionX = n.positionx,
+                    PositionY = n.positiony,
+                    Color = n.color
+                }).ToList(),
+                Connections = map.Connections.Select(c => new ConnectionResponseDTO
+                {
+                    Id = c.id,
+                    FromNodeId = c.sourcenodeid,
+                    ToNodeId = c.targetnodeid,
+                }).ToList()
+            };
         }
 
         public async Task<IEnumerable<MindMap>> GetMindMapByUserIdAsync(int userId)

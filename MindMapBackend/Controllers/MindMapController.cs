@@ -4,6 +4,7 @@ using MindMapBackend.Data.DTO;
 using MindMapBackend.Data.Models;
 using MindMapBackend.Infactucture.Interfaces;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace MindMapBackend.Controllers
 {
@@ -21,12 +22,48 @@ namespace MindMapBackend.Controllers
 
         private int GetUserId()
         {
+            
+            
             var claim = User.FindFirst(ClaimTypes.NameIdentifier);
-            if (claim == null || !int.TryParse(claim.Value, out int userId))
+            if (claim == null)
             {
                 throw new UnauthorizedAccessException("Пользователь не авторизован.");
             }
+            var userIdString = claim.Value;
+            if (!int.TryParse(claim.Value, out int userId))
+            {
+                throw new UnauthorizedAccessException("Некорректный формат ID пользователя.");
+            }
+
             return userId;
+        }
+
+
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetMindMap(int id)
+        //{
+        //    var userId = GetUserId();
+        //    var map = await _mindMapService.GetMindMapWithNodesAndConnectionsAsync(id, userId);
+        //    return Ok(map);
+        //}
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMindMap(int id)
+        {
+            try
+            {
+                var userId = GetUserId();
+                var map = await _mindMapService.GetMindMapWithNodesAndConnectionsAsync(id, userId);
+                return Ok(map);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
         }
 
         [HttpGet]
@@ -54,7 +91,7 @@ namespace MindMapBackend.Controllers
             {
                 id = id,
                 title = dto.Title,
-                ispublic = dto.ispublic,
+                ispublic = (bool)dto.ispublic,
                 userid = userId
             };
 

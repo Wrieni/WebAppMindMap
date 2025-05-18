@@ -41,16 +41,39 @@ namespace MindMapBackend.Controllers
                 return Ok(result);
             }
 
+            //[HttpPut("{nodeId}/mindmap/{mindMapId}")]
+            //public async Task<IActionResult> UpdateNode(int nodeId, int mindMapId, [FromBody] CreateNodeDTO dto)
+            //{
+            //    int userId = GetUserId();
+            //    var node = new Data.Models.Node
+            //    {
+            //        id = nodeId,
+            //        title = dto.Title,
+            //        description = dto.Description,
+            //        positionx = dto.PositionX,
+            //        positiony = dto.PositionY,
+            //        color = dto.Color,
+            //        mindmapid = mindMapId
+            //    };
+
+            //    await _nodeService.UpdateNodeAsync(nodeId, node, mindMapId, userId);
+            //    return NoContent();
+            //}
+
             [HttpPut("{nodeId}/mindmap/{mindMapId}")]
-            public async Task<IActionResult> UpdateNode(int nodeId, int mindMapId, [FromBody] CreateNodeDTO dto)
+            public async Task<IActionResult> UpdateNode(
+                    int nodeId,
+                    int mindMapId,
+                    [FromBody] NodeResponseDTO dto)
             {
                 int userId = GetUserId();
+
                 var node = new Data.Models.Node
                 {
                     id = nodeId,
                     title = dto.Title,
                     description = dto.Description,
-                    positionx = dto.PositionX,
+                    positionx = dto.PositionX, // Используем DTO с позициями
                     positiony = dto.PositionY,
                     color = dto.Color,
                     mindmapid = mindMapId

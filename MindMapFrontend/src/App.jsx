@@ -31,6 +31,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
+import Editor from './pages/Editor';
+import MyMaps from './pages/MyMaps';
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/mymaps" element={<MyMaps />} />
+        <Route path="/mymaps/editor/map/:id" element={<Editor />} />
     </Routes>
     </BrowserRouter>
     

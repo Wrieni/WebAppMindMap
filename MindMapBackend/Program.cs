@@ -6,12 +6,22 @@ using MindMapBackend.Data.Models;
 using MindMapBackend.Infactucture.Interfaces;
 using MindMapBackend.Infactucture.Services;
 using System.Text;
+using System.Text.Json.Serialization;
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IConnectionService, ConnectionService>();
+builder.Services.AddScoped<IMindMapService, MindMapService>();
+builder.Services.AddScoped<INodeService, NodeService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

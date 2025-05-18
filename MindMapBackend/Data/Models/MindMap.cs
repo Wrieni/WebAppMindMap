@@ -13,9 +13,9 @@ public partial class MindMap
 
     public DateTimeOffset? updatedat { get; set; }
 
-    public bool? ispublic { get; set; }
+    public bool ispublic { get; set; }
 
-    public int? userid { get; set; }
+    public int userid { get; set; }
 
     public virtual ICollection<Connection> Connections { get; set; } = new List<Connection>();
 

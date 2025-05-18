@@ -13,9 +13,9 @@ public partial class Node
 
     public string description { get; set; } = null!;
 
-    public double? positionx { get; set; }
+    public double positionx { get; set; }
 
-    public double? positiony { get; set; }
+    public double positiony { get; set; }
 
     public string color { get; set; } = null!;
 

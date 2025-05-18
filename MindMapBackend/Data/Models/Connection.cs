@@ -7,9 +7,9 @@ public partial class Connection
 {
     public int id { get; set; }
 
-    public int? sourcenodeid { get; set; }
+    public int sourcenodeid { get; set; }
 
-    public int? targetnodeid { get; set; }
+    public int targetnodeid { get; set; }
 
     public string type { get; set; } = null!;
 

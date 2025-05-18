@@ -7,6 +7,7 @@ namespace MindMapBackend.Infactucture.Interfaces
     {
         Task<IEnumerable<MindMap>> GetAllMindMapsAsync();
         Task<MindMap> GetMindMapByIdAsync(int id);
+        Task<MindMapResponse> GetMindMapWithNodesAndConnectionsAsync(int mapId, int userId);
         Task<IEnumerable<MindMap>> GetMindMapByUserIdAsync(int userId);
         Task<MindMap> CreateMindMapAsync(int userId, CreateMindMapDTO map);
         Task UpdateMindMapAsync(int id, MindMap map, int userId);

@@ -9,9 +9,9 @@ namespace MindMapBackend.Infactucture.Services
     public class NodeService : INodeService
     {
         private readonly MindMapDbContext _context;
-        private readonly MindMapService _mindMapService;
+        private readonly IMindMapService _mindMapService;
 
-        public NodeService(MindMapDbContext context, MindMapService mindMapService)
+        public NodeService(MindMapDbContext context, IMindMapService mindMapService)
         {
             _context = context;
             _mindMapService = mindMapService;
@@ -67,13 +67,30 @@ namespace MindMapBackend.Infactucture.Services
             return await _context.Nodes.FindAsync(id);
         }
 
-        public async Task UpdateNodeAsync(int id, Node node, int mindMapId, int userId)
+        public async Task UpdateNodeAsync(
+                int nodeId,
+                Node node,
+                int mindMapId,
+                int userId)
         {
-            var mindmap = await _mindMapService.GetMindMapByIdAsync(mindMapId);
-            mindmap.EnsureOwner(userId);
-            if (id != node.id) { throw new ArgumentException("ID узла не совпадает с переданным"); }
-            _context.Entry(node).State = EntityState.Modified;
+            var existingNode = await _context.Nodes
+                .FirstOrDefaultAsync(n => n.id == nodeId && n.mindmapid == mindMapId);
+
+            existingNode.title = node.title;
+            existingNode.description = node.description;
+            existingNode.positionx = node.positionx; 
+            existingNode.positiony = node.positiony;
+            existingNode.color = node.color;
+
             await _context.SaveChangesAsync();
         }
+        //public async Task UpdateNodeAsync(int id, Node node, int mindMapId, int userId)
+        //{
+        //    var mindmap = await _mindMapService.GetMindMapByIdAsync(mindMapId);
+        //    mindmap.EnsureOwner(userId);
+        //    if (id != node.id) { throw new ArgumentException("ID узла не совпадает с переданным"); }
+        //    _context.Entry(node).State = EntityState.Modified;
+        //    await _context.SaveChangesAsync();
+        //}
     }
 }
