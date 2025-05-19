@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
 import { Plus, Check, X, Eye } from 'lucide-react';
 import "../module/MindMapList.css";
 import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
 
 
 function MindMapList() {
@@ -39,6 +40,19 @@ function MindMapList() {
   const handleCreateClick = () => {
     setIsCreating(true);
     setNewTitle('');
+  };
+  const handleDeleteMap = async (id) => {
+    const token = localStorage.getItem('token');
+    if (!window.confirm("Вы действительно хотите удалить эту карту?")) return;
+
+    try {
+      await axios.delete(`https://localhost:7204/api/MindMap/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setMindMaps((prev) => prev.filter((map) => map.id !== id));
+    } catch (error) {
+      console.error("Ошибка при удалении карты:", error);
+    }
   };
 
    const handleSaveNew = async () => {
@@ -171,14 +185,24 @@ function MindMapList() {
                     Статус: {map.ispublic ? 'Публичная' : 'Приватная'}
                   </p>
                 </div>
-                <button
-                  onClick={() => navigate(`editor/map/${map.id}`)}
-                  className="openButton"
-                  type="button"
-                >
-                  <Eye size={16} /> Открыть
-                </button>
+                <div className="cardButtons">
+                  <button
+                    onClick={() => navigate(`editor/map/${map.id}`)}
+                    className="openButton"
+                    type="button"
+                  >
+                    <Eye size={16} /> Открыть
+                  </button>
+                  <button
+                    onClick={() => handleDeleteMap(map.id)}
+                    className="deleteButton"
+                    type="button"
+                  >
+                    <X size={16} /> Удалить
+                  </button>
+                </div>
               </div>
+
             ))}
           </div>
         )}

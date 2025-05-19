@@ -236,10 +236,11 @@
 /* Герой */
 .hero-section {
   background: #ffffff;
-  padding: 4rem 0;
+  padding: 8rem 0;
   display: flex;
   justify-content: center;
   text-align: center;
+  
   
 }
 .section-content {
@@ -286,6 +287,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+  color:#E5E7EB;
 }
 .main-footer {
     background:#2d2d2d;
@@ -324,6 +326,7 @@
 .footer-bottom {
   text-align: center;
   margin-top: 4rem;
+  color:#E5E7EB;
   padding-top: 2rem;
   border-top: 1px solid #374151;
 }

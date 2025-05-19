@@ -1,0 +1,10 @@
+
+.node:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+.edge-path:hover {
+  stroke: #ff4444;
+  cursor: pointer;
+}

@@ -266,3 +266,30 @@
   color:#1f1f1f;
   background:#e2e8f0
 }
+
+.cardButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.deleteButton {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  user-select: none;
+
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+}
+
+.deleteButton:hover {
+  background-color: #c0392b;
+}

@@ -21,16 +21,16 @@ namespace MindMapBackend.Infactucture.Services
                 ispublic = map.ispublic,
                 createdat = DateTime.Now,
                 userid = userId,
-                Nodes = new List<Node>
-                    {
-                        new Node
-                        {
-                            title = "Главная тема",
-                            positionx= 300,
-                            positiony = 300,
+                //Nodes = new List<Node>
+                //    {
+                //        new Node
+                //        {
+                //            title = "Главная тема",
+                //            positionx= 300,
+                //            positiony = 300,
 
-                        }
-                    }
+                //        }
+                //    }
             };
 
             _context.Add(newMap);
