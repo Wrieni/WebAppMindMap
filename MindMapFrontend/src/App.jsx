@@ -33,11 +33,13 @@ import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Editor from './pages/Editor';
 import MyMaps from './pages/MyMaps';
+import Home from './pages/Home';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />

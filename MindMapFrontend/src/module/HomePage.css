@@ -1,0 +1,329 @@
+.home-container {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  
+}
+
+/* Хедер */
+.main-header {
+  background: #1a1a1a;
+  padding: 1rem 2rem;
+}
+
+
+.header-content {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+
+.logo {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.auth-buttons {
+  display: flex;
+  padding-top: 8px;
+  gap: 1rem;
+}
+
+.login-btn {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.login-btn:hover {
+  background: #323232;
+  color: white;
+  border: 2px solid #323232;
+}
+
+
+.register-btn {
+  background: white;
+  color: #1a1a1a;
+  border: 2px solid white;
+  padding: 8px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.register-btn:hover {
+  background: #323232;
+  color: white;
+  border: 2px solid #323232;
+}
+/* Герой-секция */
+/* .hero-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  margin: 0 auto;
+  width: 100%;
+  
+  
+} */
+
+.hero-title {
+  font-size: 64px;
+  margin-bottom: 1.5rem;
+  color: #2d2d2d;
+}
+
+.hero-subtitle {
+  font-size: 24px;
+  color: #666;
+  margin-bottom: 3rem;
+}
+
+.cta-button {
+  background: #2d2d2d;
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.cta-button:hover {
+  background: #404040;
+}
+
+.features-title {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 3rem;
+  color: #2d2d2d;
+}
+
+
+/* Основной контейнер секции */
+/* .features-section {
+  width: 100%;
+  /* padding: 4rem 0; */
+
+
+/* Исправленная сетка */
+
+/* Карточки с гибкой шириной */
+.feature-card {
+  background: white;
+  padding: 1rem;
+
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 350px;
+  border-radius: 1rem;
+}
+
+
+.feature-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Публичные карты */
+
+.section-title {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 3rem;
+  color: #2d2d2d;
+}
+
+.public-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background:#f1f1f1;
+}
+
+/* Общие улучшения для всех карточек */
+.feature-card, .public-card {
+  will-change: transform; /* Оптимизация анимации */
+  backface-visibility: hidden; /* Улучшение сглаживания */
+  overflow: hidden; /* Если внутри есть элементы, выходящие за границы */
+}
+
+.public-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 350px;
+}
+
+.card-content {
+  margin-bottom: 1.5rem;
+}
+
+.card-title {
+  color: #2d2d2d;
+  margin-bottom: 0.5rem;
+}
+
+.card-status {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.open-button {
+  background: transparent;
+  border: 2px solid #2d2d2d;
+  color: #2d2d2d;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+}
+.section-content h4 {
+    color: #2d2d2d;
+}
+.open-button:hover {
+  background: #2d2d2d;
+  color: white;
+}
+
+/* @media (max-width: 768px) {
+  .hero-title {
+    font-size: 48px;
+  }
+
+  .hero-subtitle {
+    font-size: 20px;
+  }
+} */
+.home-container {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #f0f0f0;
+}
+
+/* header остаётся как есть... */
+
+.main-content {
+  width: 100%;
+  display: inline-block;
+  
+  
+}
+
+/* Герой */
+.hero-section {
+  background: #ffffff;
+  padding: 4rem 0;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  
+}
+.section-content {
+  
+  margin: 0 auto;
+  padding: 0 6rem;
+  
+}
+
+.hero-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Features */
+.features-section {
+  padding: 4rem 0;
+  background: #f0f0f0;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 4rem;
+}
+
+/* Публичные карты */
+.public-maps-section {
+  padding: 8rem 0;
+  background: #ffffff;
+}
+.public-maps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 4rem;
+}
+
+
+
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.main-footer {
+    background:#2d2d2d;
+}
+.footer-column h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.footer-column a {
+  color: #E5E7EB;
+  display: block;
+  margin-bottom: 0.8rem;
+  transition: color 0.2s;
+}
+
+.footer-column a:hover {
+  color: var(--primary-color);
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.social-links svg {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.social-links svg:hover {
+  color: var(--primary-color);
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid #374151;
+}

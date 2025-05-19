@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from '../context/AuthContext'; // Правильный путь
-
+import { useAuth } from '../context/AuthContext';
+import '../module/LoginPage.css';
 
 export default function Register() {
   const { register } = useAuth();
@@ -28,17 +28,53 @@ export default function Register() {
     }
   };
 
-
   return (
-    <div>
-      <h2>Регистрация</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Имя" onChange={handleChange} required />
-        <input type="text" name="surname" placeholder="Фамилия" onChange={handleChange} required />
-        <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Пароль" onChange={handleChange} required />
-        <button type="submit">Зарегистрироваться</button>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+    <div className="login-container">
+      <header className="main-header">
+        <div className="header-content">
+          <h1 className="logo">MindMap</h1>
+          <div className="auth-buttons">
+            <button className="login-btn" onClick={() => navigate('/login')}>Войти</button>
+            <button className="register-btn" onClick={() => navigate('/register')}>Зарегистрироваться</button>
+          </div>
+        </div>
+      </header>
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2 className="login-title">Регистрация</h2>
+        <input
+          type="text"
+          name="name"
+          placeholder="Имя"
+          onChange={handleChange}
+          required
+          className="login-input"
+        />
+        <input
+          type="text"
+          name="surname"
+          placeholder="Фамилия"
+          onChange={handleChange}
+          required
+          className="login-input"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+          className="login-input"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Пароль"
+          onChange={handleChange}
+          required
+          className="login-input"
+        />
+        {error && <p className="login-error">{error}</p>}
+        <button type="submit" className="login-button">Зарегистрироваться</button>
       </form>
     </div>
   );
